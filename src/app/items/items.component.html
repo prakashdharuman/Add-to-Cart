@@ -1,0 +1,29 @@
+<div class="container">
+  <h3 class="h3">All Items
+    <span class="go-to-cart float-right" routerLink="/orderSummary">
+      Go to Cart
+      <span class="cart-count-label">{{itemsService.getOrderCount()}}</span>
+    </span>
+  </h3>
+  <div class="row" *ngIf="items?.length>0">
+      <div class="col-md-3 col-sm-6" *ngFor="let item of items">
+          <div class="product-grid4">
+              <div class="product-image4">
+                    <img class="pic-1" onerror="this.src='assets/images/default-image_550.png'" [src]="item.img_url">
+                  <span *ngIf="item.discount>0" class="product-discount-label">{{item.discount}}% Off</span>
+              </div>
+              <div class="product-content">
+                <div class="float-left">
+                  <h3 class="title">{{item.name}}</h3>
+                  <div class="price">
+                    <span *ngIf="item.discount>0">${{item.price}}</span>
+                    ${{item.price - item.price*item.discount/100}}
+                  </div>
+                </div>
+
+                <span class="add-to-cart float-right" (click)="itemsService.addItem(item)">ADD TO CART</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+    <h3 class="h3"><span class="button float-left" routerLink="">&lt;</span>&nbsp; Order Summary</h3>
+    <div class="row">
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Items({{itemsService.orderSummary.length}})</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col"></th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of itemsService.orderSummary; let index = index">
+              <th scope="row"><img style="width:80px" onerror="this.src='assets/images/default-image_550.png'" [src]="order.img_url"><span> {{order.name}}</span></th>
+              <td>${{order.price}}</td>
+              <td>
+                <span class="button" (click)="itemsService.decreaseQuantity(index)">-</span>
+                {{order.quantity}} 
+                <span (click)="itemsService.increaseQuantity(index)" class="button">+</span>
+              </td>
+              <td>
+                <span class="button" (click)="itemsService.removeItem(index)">
+                  Remove
+                </span>
+              </td>
+              <td class="float-right">${{order.quantity*order.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="col-md-4">
+        <table class="table table-borderless table-border-out">
+          <tbody>
+            <tr>
+              <td colspan="3">Total</td>
+            </tr>
+            <tr>
+                <td>Items({{itemsService.orderSummary.length}})</td>
+                <td>:</td>
+                <td class="float-right">${{itemsService.getTotalPrice()}}</td>
+              </tr>
+            <tr>
+                <td>Discount</td>
+                <td>:</td>
+                <td class="float-right"><span *ngIf="(itemsService.getTotalPrice() - itemsService.getDiscountPrice())>0">-</span>${{itemsService.getTotalPrice() - itemsService.getDiscountPrice()}}</td>
+              </tr>
+            <tr>
+                <td>Type Discount</td>
+                <td>:</td>
+                <td class="float-right">$0</td>
+              </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td>Order Total</td>
+              <td>:</td>
+              <td class="float-right">${{itemsService.getDiscountPrice()}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
